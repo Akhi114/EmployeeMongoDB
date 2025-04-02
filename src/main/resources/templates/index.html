@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Form</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", Arial, sans-serif;
+            background-color: #1c1c1e;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #f2f2f7;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: #2c2c2e;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #f2f2f7;
+            margin-bottom: 15px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        input, button {
+            width: 85%; /* Ensures both input and button are the same width */
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 12px;
+            outline: none;
+        }
+        input {
+            border: 1px solid #3a3a3c;
+            background: #1c1c1e;
+            color: #f2f2f7;
+            transition: all 0.3s;
+        }
+        input:focus {
+            border-color: #0a84ff;
+            background: #2c2c2e;
+            box-shadow: 0 0 8px rgba(10, 132, 255, 0.8);
+        }
+        button {
+            background: #0a84ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #007aff;
+        }
+        .employee-list {
+            margin-top: 15px;
+            text-align: left;
+        }
+        .employee-list h3 {
+            font-size: 18px;
+            color: #f2f2f7;
+            margin-bottom: 10px;
+        }
+        .employee-item {
+            background: #3a3a3c;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #f2f2f7;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Employee Registration</h2>
+    <form th:action="@{/saveEmployee}" th:object="${employee}" method="post">
+        <input type="text" th:field="*{name}" placeholder="Employee Name" required />
+        <input type="email" th:field="*{email}" placeholder="Employee Email" required />
+        <input type="text" th:field="*{location}" placeholder="Location" required />
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="employee-list">
+        <h3>All Employees</h3>
+        <ul>
+            <li class="employee-item" th:each="emp : ${employees}">
+                <span th:text="${emp.name} + ' - ' + ${emp.email} + ' - ' + ${emp.location}"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
